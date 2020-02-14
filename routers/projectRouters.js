@@ -74,14 +74,30 @@ router.put('/:id', (req, res) => {
 
 // POST Request 
 router.post('/', (req, res) => {
-    const project = {...req.body, project_id: req.params.id};
+    const project = req.params.id;
     Projects.insert(project)
             .then(projects => {
-                res.status(201).json(projects)
+                if (projects) {
+                    res.status(201).json({...req.body, project_id: project})
+                }
             })
             .catch(error => {
                 res.status(500).json({ message: "Error posting to projects" })
             });
 });
+
+// // POST Request 
+// router.post('/', (req, res) => {
+//     const project = {...req.body, project_id: req.params.id};
+//     Projects.insert(project)
+//             .then(projects => {
+//                 if (projects) {
+//                     res.status(201).json(projects)
+//                 }
+//             })
+//             .catch(error => {
+//                 res.status(500).json({ message: "Error posting to projects" })
+//             });
+// });
 
 module.exports = router;

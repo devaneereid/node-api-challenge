@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => {
 });
 
 // POST Request
-router.post('/', (req, res) => {
+router.post('/:id', (req, res) => {
     Actions.insert(req.body) 
             .then(action => {
                 if(action) {

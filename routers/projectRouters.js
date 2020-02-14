@@ -73,32 +73,19 @@ router.put('/:id', (req, res) => {
 });
 
 // POST Request 
-router.post('/', (req, res) => {
-    const project = req.params.id;
-    Projects.insert(project)
-            .then(projects => {
-                if (projects) {
-                    res.status(201).json({...req.body, project_id: project})
+router.post('/:id', (req, res) => {
+    Projects.insert(req.body) 
+            .then(project => {
+                if(project) {
+                    res.status(201).json(project)
+                } else {
+                    res.status(400).json({ message: "Error finding project" })
                 }
             })
             .catch(error => {
-                console.log(error);
-                res.status(500).json({ message: "Error posting to projects" })
+                console.log(error)
+                res.status(500).json({ message: "Error posting project"})
             });
 });
-
-// // POST Request 
-// router.post('/', (req, res) => {
-//     const project = {...req.body, project_id: req.params.id};
-//     Projects.insert(project)
-//             .then(projects => {
-//                 if (projects) {
-//                     res.status(201).json(projects)
-//                 }
-//             })
-//             .catch(error => {
-//                 res.status(500).json({ message: "Error posting to projects" })
-//             });
-// });
 
 module.exports = router;

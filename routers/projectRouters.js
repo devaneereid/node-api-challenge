@@ -27,6 +27,18 @@ router.get('/:id', (req, res) => {
             });
 });
 
+// GET Project Actions Request
+router.get('/:id/actions', (req, res) => {
+    Projects.getProjectActions(req.params.id)
+            .then(action => {
+                if (action) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(400).json({ message: "Error retrieving project actions" })
+                };
+            });
+});
+
 // DELETE Request 
 router.delete('/:id', (req, res) => {
     Projects.remove(req.params.id) 
@@ -63,12 +75,12 @@ router.put('/:id', (req, res) => {
 // POST Request 
 router.post('/', (req, res) => {
     const project = {...req.body, project_id: req.params.id};
-    Projects.add(project)
+    Projects.insert(project)
             .then(projects => {
                 res.status(201).json(projects)
             })
             .catch(error => {
-                res.status(500).json({ message: "Error posting to projects"})
+                res.status(500).json({ message: "Error posting to projects" })
             });
 });
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const Actions = require('../data/helpers/actionModel');
-const Projects = require('../data/helpers/projectModel');
 
 const router = express.Router();
 
@@ -77,8 +76,5 @@ router.post('/', (req, res) => {
                 res.status(500).json({ message: "Error posting action"})
             });
 });
-
-
-
 
 module.exports = router;

@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET Request 
 router.get('/', (req, res) => {
-    Actions.get(req.query)
+    Actions.get()
            .then(action => {
                res.status(200).json(action)
            })
